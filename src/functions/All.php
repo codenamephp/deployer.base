@@ -17,6 +17,8 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use Deployer\Host\Host;
+use Deployer\Support\ObjectProxy;
 use function Deployer\add;
 use function Deployer\set;
 use function Deployer\upload;
@@ -28,6 +30,10 @@ final class All implements iAll {
 
   public function add(string $name, array $array) : void {
     add($name, $array);
+  }
+
+  public function host(string ...$hostname) : Host|ObjectProxy {
+    return \Deployer\host(...$hostname);
   }
 
   public function set(string $name, mixed $value) : void {

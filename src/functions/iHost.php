@@ -17,11 +17,30 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iHost, iUpload, iSet {
+use Deployer\Host\Host;
+use Deployer\Support\ObjectProxy;
 
+/**
+ * Interface for the Deployer\host method
+ */
+interface iHost {
+
+  /**
+   * Defines a host or hosts.
+   * ```php
+   * host('example.org');
+   * host('prod.example.org', 'staging.example.org');
+   * ```
+   *
+   * Inside task can be used to get `Host` instance of an alias.
+   * ```php
+   * task('test', function () {
+   *     $port = host('example.org')->get('port');
+   * });
+   * ```
+   *
+   * @param string ...$hostname One or multiple hostnames of the host(s) to get/define
+   * @return Host|ObjectProxy
+   */
+  public function host(string ...$hostname) : Host|ObjectProxy;
 }
