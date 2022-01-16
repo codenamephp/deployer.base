@@ -1,0 +1,63 @@
+{
+  "name": "{{vendor}}/{{componentName}}",
+  "description": "",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Bastian Schwarz",
+      "email": "bastian@codename-php.de"
+    }
+  ],
+  "require": {
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+    "phpcompatibility/php-compatibility": "^9.0",
+    "squizlabs/php_codesniffer": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "{{namespace|replace({'\\':'\\\\'})}}\\": [
+        "src"
+      ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "{{namespace|replace({'\\':'\\\\'})}}\\test\\": [
+        "test"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "phive-update": "phive update && git add tools/* phive.xml && git commit -m 'Updated phive dependencies'",
+    "phpunit": "tools/phpunit.phar -c test/phpunit.dist.xml test/",
+    "psalm": "tools/psalm --threads=10 --long-progress",
+    "phpcomp": "vendor/bin/phpcs --cache=.cache/phpcomp.cache --standard=phpcomp.xml --parallel=10 --extensions=php --ignore=autoload.php src/*",
+    "composer-unused": "tools/composer-unused --no-progress --no-interaction --profile",
+    "composer-require-checker": "tools/composer-require-checker --no-interaction",
+    "infection": "XDEBUG_MODE=coverage tools/infection --min-msi=95 --min-covered-msi=95 --threads=4 --no-progress --show-mutations",
+    "ci-all": [
+      "@phpunit",
+      "@phpcomp",
+      "@psalm",
+      "@composer-unused",
+      "@infection"
+    ]
+  },
+  "scripts-descriptions": {
+    "phive-update": "Runs a phive update and commits all tools and the phive.xml so PHPStorm won't run code formatting on the phars",
+    "phpunit": "Runs phpunit tests",
+    "phpcomp": "Runs php compatibility checks",
+    "psalm": "Runs psalm static analysis",
+    "composer-unused": "Checks for unused composer packages",
+    "composer-require-checker": "Checks for missing required composer packages",
+    "infection": "Creates mutation tests to discover missing test coverage",
+    "ci-all": "Runs all ci tools in sequence"
+  }
+}
