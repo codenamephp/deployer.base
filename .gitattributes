@@ -14,3 +14,4 @@
 /phive.xml export-ignore
 /phpcomp.xml export-ignore
 /psalm.xml export-ignore
+.gitkeep export-ignore
