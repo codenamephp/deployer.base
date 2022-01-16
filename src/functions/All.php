@@ -22,6 +22,7 @@ use Deployer\Host\Localhost;
 use Deployer\Support\ObjectProxy;
 use Deployer\Task\Task;
 use function Deployer\add;
+use function Deployer\after;
 use function Deployer\set;
 use function Deployer\upload;
 
@@ -32,6 +33,10 @@ final class All implements iAll {
 
   public function add(string $name, array $array) : void {
     add($name, $array);
+  }
+
+  public function after(string $task, callable|\de\codenamephp\deployer\base\task\iTask|string $do) : ?Task {
+    return after($task, $do);
   }
 
   public function host(string ...$hostname) : Host|ObjectProxy {

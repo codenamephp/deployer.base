@@ -17,11 +17,20 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iAfter, iHost, iLocalhost, iSet, iTask, iUpload {
+use Deployer\Task\Task;
 
+/**
+ * Interface for the Deployer\after method
+ */
+interface iAfter {
+
+  /**
+   * Call that task after specified task runs.
+   *
+   * @param string $task The task after $do should be run.
+   * @param \de\codenamephp\deployer\base\task\iTask|string|callable $do The task to be run.
+   *
+   * @return Task|null
+   */
+  public function after(string $task, \de\codenamephp\deployer\base\task\iTask|string|callable $do) : ?Task;
 }
