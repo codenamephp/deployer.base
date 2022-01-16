@@ -1,30 +1,19 @@
-# template.php.library
+# Deployer Base
 
-![Lines of code](https://img.shields.io/tokei/lines/github/codenamephp/template.php.library)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/codenamephp/template.php.library)
-![GitHub](https://img.shields.io/github/license/codenamephp/template.php.library)
+![Lines of code](https://img.shields.io/tokei/lines/github/codenamephp/deployer.base)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/codenamephp/deployer.base)
+![GitHub](https://img.shields.io/github/license/codenamephp/deployer.base)
 
-Template repository to quickstart library development.
+Base package that provides the very basic task interface, function abstraction and some initial tasks useful for all projects like transferring files
 
-## Prerequisites
-- PHP 8.0 or later (https://php.net)
-- Git (https://git-scm.com) available as global `git` command
-- Composer (https://getcomposer.org) available as global `composer` command
-- Phive (https://phar.io) available as global `phive` command
+## What is it?
 
-If one of the CLI tools is not available as global command you may have to change the `.installer/install.php` or `composer.json`
-to adapt to your environment.
+This package is an extension to deployer that adds basic tasks and interfaces and abstracts the actual deployer API.
 
-## Usage
+## But ... why?
 
-This template uses an installer to setup all the files that need replacing of placeholders but most files
-are just kept as they are.
+I really like testable code and since the actual deploy.php is otherwise just a collection of callbacks that is hard to test I added basic interfaces and
+classes that encapsulate the tasks and make them reusable.
 
-TODOs:
-1. Create the new repository on GitHub using this repository as template
-1. Add protection rules for master and release branches since they are not copied from the template :(
-1. Clone the new repository to local
-1. Run the installer by executing `composer run-installer`
-1. Add and commit your files and push them to remote
-1. Submit the new package to packagist
-1. Get to work! ;)
+Sure, you could make it work with lambdas but since PHP is not intended to be a functional programming language it's far easier to just throw some classes into
+the mix.

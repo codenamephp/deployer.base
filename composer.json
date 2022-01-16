@@ -1,6 +1,6 @@
 {
   "name": "codenamephp/deployer.base",
-  "description": "",
+  "description": "Base package that provides the very basic task interface, function abstraction and some initial tasks useful for all projects like transferring files",
   "type": "library",
   "license": "Apache-2.0",
   "authors": [
