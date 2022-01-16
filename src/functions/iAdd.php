@@ -17,19 +17,17 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-use function Deployer\add;
-use function Deployer\upload;
-
 /**
- * Implements all method interfaces so we a "all drop-in" class to easily access the methods
+ * Interface for the Deployer\add method
  */
-final class All implements iAll {
+interface iAdd {
 
-  public function add(string $name, array $array) : void {
-    add($name, $array);
-  }
-
-  public function upload(string $source, string $destination, array $config = []) : void {
-    upload($source, $destination, $config);
-  }
+  /**
+   * Merge new config params to existing config array.
+   *
+   * @param string $name The name of the variable to add to
+   * @param array $array
+   * @return void
+   */
+  public function add(string $name, array $array) : void;
 }
