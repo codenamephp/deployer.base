@@ -20,6 +20,7 @@ namespace de\codenamephp\deployer\base\functions;
 use Deployer\Host\Host;
 use Deployer\Host\Localhost;
 use Deployer\Support\ObjectProxy;
+use Deployer\Task\Task;
 use function Deployer\add;
 use function Deployer\set;
 use function Deployer\upload;
@@ -43,6 +44,10 @@ final class All implements iAll {
 
   public function set(string $name, mixed $value) : void {
     set($name, $value);
+  }
+
+  public function task(string $name, callable|array|\de\codenamephp\deployer\base\task\iTask|null $body = null) : Task {
+    return \Deployer\task($name, $body);
   }
 
   public function upload(string $source, string $destination, array $config = []) : void {

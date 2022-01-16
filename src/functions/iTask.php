@@ -17,11 +17,20 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iHost, iLocalhost, iSet, iTask, iUpload {
+use Deployer\Task\Task;
 
+/**
+ * Interface for the Deployer\task method
+ */
+interface iTask {
+
+  /**
+   * Define a new task and save to tasks list.
+   *
+   * Alternatively get a defined task.
+   *
+   * @param string $name Name of current task.
+   * @param \de\codenamephp\deployer\base\task\iTask|callable|array|null $body Callable task, array of other tasks names or nothing to get a defined tasks
+   */
+  public function task(string $name, \de\codenamephp\deployer\base\task\iTask|callable|array|null $body = null) : Task;
 }
