@@ -17,24 +17,17 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-use function Deployer\add;
-use function Deployer\set;
-use function Deployer\upload;
-
 /**
- * Implements all method interfaces so we a "all drop-in" class to easily access the methods
+ * Interface for the Deployer\set method
  */
-final class All implements iAll {
+interface iSet {
 
-  public function add(string $name, array $array) : void {
-    add($name, $array);
-  }
-
-  public function set(string $name, mixed $value) : void {
-    set($name, $value);
-  }
-
-  public function upload(string $source, string $destination, array $config = []) : void {
-    upload($source, $destination, $config);
-  }
+  /**
+   * Sets a configuration value
+   *
+   * @param string $name The name of the value
+   * @param mixed $value The value to set
+   * @return void
+   */
+  public function set(string $name, mixed $value) : void;
 }
