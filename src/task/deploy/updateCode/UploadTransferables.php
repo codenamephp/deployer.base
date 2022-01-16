@@ -18,7 +18,7 @@
 namespace de\codenamephp\deployer\base\task\deploy\updateCode;
 
 use de\codenamephp\deployer\base\functions\All;
-use de\codenamephp\deployer\base\functions\iAll;
+use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\task\iTask;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 
@@ -27,7 +27,7 @@ use de\codenamephp\deployer\base\transferable\iTransferable;
  */
 final class UploadTransferables implements iTask {
 
-  public iAll $deployerFunctions;
+  public iUpload $deployerFunctions;
 
   /**
    * @var iTransferable[]

@@ -18,7 +18,7 @@
 namespace de\codenamephp\deployer\base\test\task\deploy\updateCode;
 
 use de\codenamephp\deployer\base\functions\All;
-use de\codenamephp\deployer\base\functions\iAll;
+use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\task\deploy\updateCode\UploadTransferables;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use PHPUnit\Framework\TestCase;
@@ -31,11 +31,11 @@ final class UploadTransferablesTest extends TestCase {
     parent::setUp();
 
     $this->sut = new UploadTransferables();
-    $this->sut->deployerFunctions = $this->createMock(iAll::class);
+    $this->sut->deployerFunctions = $this->createMock(iUpload::class);
   }
 
   public function test__invoke() : void {
-    $this->sut->deployerFunctions = $this->createMock(iAll::class);
+    $this->sut->deployerFunctions = $this->createMock(iUpload::class);
     $this->sut->deployerFunctions
       ->expects(self::exactly(3))
       ->method('upload')
