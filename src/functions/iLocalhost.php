@@ -17,11 +17,19 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iHost, iLocalhost, iUpload, iSet {
+use Deployer\Host\Localhost;
+use Deployer\Support\ObjectProxy;
 
+/**
+ * Interface for the Deployer\localhost method
+ */
+interface iLocalhost {
+
+  /**
+   * Similar to host() but only gets a localhost for local task execution
+   *
+   * @param string ...$hostname
+   * @return Localhost|ObjectProxy
+   */
+  public function localhost(string ...$hostname) : Localhost|ObjectProxy;
 }

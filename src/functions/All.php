@@ -18,6 +18,7 @@
 namespace de\codenamephp\deployer\base\functions;
 
 use Deployer\Host\Host;
+use Deployer\Host\Localhost;
 use Deployer\Support\ObjectProxy;
 use function Deployer\add;
 use function Deployer\set;
@@ -34,6 +35,10 @@ final class All implements iAll {
 
   public function host(string ...$hostname) : Host|ObjectProxy {
     return \Deployer\host(...$hostname);
+  }
+
+  public function localhost(string ...$hostname) : Localhost|ObjectProxy {
+    return \Deployer\localhost(...$hostname);
   }
 
   public function set(string $name, mixed $value) : void {
