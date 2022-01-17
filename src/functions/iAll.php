@@ -22,6 +22,6 @@ namespace de\codenamephp\deployer\base\functions;
  *
  * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
  */
-interface iAll extends iAdd, iAfter, iHost, iLocalhost, iSet, iTask, iUpload {
+interface iAll extends iAdd, iAfter, iHost, iLocalhost, iRun, iSet, iTask, iUpload {
 
 }

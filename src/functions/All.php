@@ -23,6 +23,7 @@ use Deployer\Support\ObjectProxy;
 use Deployer\Task\Task;
 use function Deployer\add;
 use function Deployer\after;
+use function Deployer\run;
 use function Deployer\set;
 use function Deployer\upload;
 
@@ -45,6 +46,10 @@ final class All implements iAll {
 
   public function localhost(string ...$hostname) : Localhost|ObjectProxy {
     return \Deployer\localhost(...$hostname);
+  }
+
+  public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string {
+    return run($command, $options, $timeout, $idle_timeout, $secret, $env, $real_time_output, $no_throw);
   }
 
   public function set(string $name, mixed $value) : void {
