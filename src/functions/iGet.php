@@ -18,10 +18,17 @@
 namespace de\codenamephp\deployer\base\functions;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Interface for the Deployer\get() function
  */
-interface iAll extends iAdd, iAfter, iGet, iHost, iLocalhost, iRun, iSet, iTask, iUpload {
+interface iGet {
 
+  /**
+   * Get configuration value. If no value was set the passed default is returned.
+   *
+   * @param string $name The name of the configuration value to get
+   * @param mixed|null $default The default to return if the configuration value does not exist
+   *
+   * @return mixed
+   */
+  public function get(string $name, mixed $default = null) : mixed;
 }
