@@ -15,13 +15,13 @@
  *   limitations under the License.
  */
 
-namespace de\codenamephp\deployer\base\functions;
+namespace de\codenamephp\deployer\base;
+
+use RuntimeException;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Exception that can be thrown when an unsafe operation is about to be executed, e.g. a task that is run on a server that it is not supposed to run on
  */
-interface iAll extends iAdd, iAfter, iCurrentHost, iGet, iHost, iLocalhost, iRun, iSet, iTask, iUpload {
+final class UnsafeOperationException extends RuntimeException {
 
 }

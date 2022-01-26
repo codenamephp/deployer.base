@@ -15,13 +15,13 @@
  *   limitations under the License.
  */
 
-namespace de\codenamephp\deployer\base\functions;
+namespace de\codenamephp\deployer\base;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Enum interface to hold names of configuration keys
  */
-interface iAll extends iAdd, iAfter, iCurrentHost, iGet, iHost, iLocalhost, iRun, iSet, iTask, iUpload {
+interface iConfigurationKeys {
 
+  public const PRODUCTION = 'production';
+  public const LOCALHOST = 'localhost';
 }

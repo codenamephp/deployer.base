@@ -15,13 +15,20 @@
  *   limitations under the License.
  */
 
-namespace de\codenamephp\deployer\base\functions;
+namespace de\codenamephp\deployer\base\hostCheck;
+
+use de\codenamephp\deployer\base\UnsafeOperationException;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Interface to check the host in tasks, e.g. to make sure the task don't run on the production server
  */
-interface iAll extends iAdd, iAfter, iCurrentHost, iGet, iHost, iLocalhost, iRun, iSet, iTask, iUpload {
+interface iHostCheck {
 
+  /**
+   * Checks if the host is allowed, e.g. by checking the current host against a list of allowed names
+   *
+   * @return void
+   * @throws UnsafeOperationException when the host check fails
+   */
+  public function check() : void;
 }
