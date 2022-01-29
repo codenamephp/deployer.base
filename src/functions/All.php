@@ -26,6 +26,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use function Deployer\add;
 use function Deployer\after;
 use function Deployer\currentHost;
+use function Deployer\download;
 use function Deployer\get;
 use function Deployer\input;
 use function Deployer\on;
@@ -49,6 +50,10 @@ final class All implements iAll {
 
   public function currentHost() : Host {
     return currentHost();
+  }
+
+  public function download(string $source, string $destination, array $config = []) : void {
+    download($source, $destination, $config);
   }
 
   public function get(string $name, mixed $default = null) : mixed {

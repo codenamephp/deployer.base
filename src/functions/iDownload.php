@@ -17,11 +17,21 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iAfter, iCurrentHost, iDownload, iGet, iHost, iInput, iLocalhost, iOn, iRun, iSet, iTask, iUpload {
+use Deployer\Exception\RunException;
 
+/**
+ * Interface for the Deployer\download function
+ */
+interface iDownload {
+
+  /**
+   * Download file or directory from host
+   *
+   * @param string $source The path on the remote host to download
+   * @param string $destination The path on the local host to download to
+   * @param array{flags?: string, options?: array, timeout?: int|null, progress_bar?: bool, display_stats?: bool} $config Config for the transfer
+   *
+   * @throws RunException
+   */
+  public function download(string $source, string $destination, array $config = []) : void;
 }
