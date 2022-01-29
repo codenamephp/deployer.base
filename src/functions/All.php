@@ -17,15 +17,19 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use Deployer\Deployer;
 use Deployer\Host\Host;
 use Deployer\Host\Localhost;
 use Deployer\Support\ObjectProxy;
 use Deployer\Task\Task;
+use Symfony\Component\Console\Input\InputArgument;
 use function Deployer\add;
 use function Deployer\after;
 use function Deployer\currentHost;
 use function Deployer\get;
+use function Deployer\input;
 use function Deployer\on;
+use function Deployer\option;
 use function Deployer\run;
 use function Deployer\set;
 use function Deployer\upload;
@@ -53,6 +57,22 @@ final class All implements iAll {
 
   public function host(string ...$hostname) : Host|ObjectProxy {
     return \Deployer\host(...$hostname);
+  }
+
+  public function getOption(string $name, mixed $default = null) : mixed {
+    return input()->getOption($name) ?? $default;
+  }
+
+  public function getArgument(string $name, mixed $default = null) : mixed {
+    return input()->getArgument($name) ?? $default;
+  }
+
+  public function option(string $name, string $shortcut = null, int $mode = null, string $description = '', string|array|int|bool|null $default = null) : void {
+    option($name, $shortcut, $mode, $description, $default);
+  }
+
+  public function argument(string $name, int $mode = null, string $description = '', string|array|int|bool|null $default = null) : void {
+    Deployer::get()->inputDefinition->addArgument(new InputArgument($name, $mode, $description, $default));
   }
 
   public function localhost(string ...$hostname) : Localhost|ObjectProxy {

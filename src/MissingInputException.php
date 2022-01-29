@@ -15,13 +15,11 @@
  *   limitations under the License.
  */
 
-namespace de\codenamephp\deployer\base\functions;
+namespace de\codenamephp\deployer\base;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Exception to throw when an input (argument or option) is missing as in: was not defined or set
  */
-interface iAll extends iAdd, iAfter, iCurrentHost, iGet, iHost, iInput, iLocalhost, iOn, iRun, iSet, iTask, iUpload {
+final class MissingInputException extends \Symfony\Component\Console\Exception\MissingInputException {
 
 }
