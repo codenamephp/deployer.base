@@ -25,6 +25,7 @@ use function Deployer\add;
 use function Deployer\after;
 use function Deployer\currentHost;
 use function Deployer\get;
+use function Deployer\on;
 use function Deployer\run;
 use function Deployer\set;
 use function Deployer\upload;
@@ -56,6 +57,10 @@ final class All implements iAll {
 
   public function localhost(string ...$hostname) : Localhost|ObjectProxy {
     return \Deployer\localhost(...$hostname);
+  }
+
+  public function on(Host|array $hosts, callable $callback) : void {
+    on($hosts, $callback);
   }
 
   public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string {

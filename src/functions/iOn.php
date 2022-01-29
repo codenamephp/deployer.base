@@ -17,11 +17,36 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iAfter, iCurrentHost, iGet, iHost, iLocalhost, iOn, iRun, iSet, iTask, iUpload {
+use Deployer\Host\Host;
 
+/**
+ * Interface for the Deployer\on method
+ */
+interface iOn {
+
+  /**
+   * Iterate other hosts, allowing to call run a func in callback.
+   *
+   * ```php
+   * on(select('stage=prod, role=db'), function ($host) {
+   *     ...
+   * });
+   * ```
+   *
+   * ```php
+   * on(host('example.org'), function ($host) {
+   *     ...
+   * });
+   * ```
+   *
+   * ```php
+   * on(Deployer::get()->hosts, function ($host) {
+   *     ...
+   * });
+   * ```
+   *
+   * @param Host|Host[] $hosts The hosts to execute the callback on
+   * @param callable $callback The callback to execute on the given hosts
+   */
+  public function on(Host|array $hosts, callable $callback) : void;
 }
