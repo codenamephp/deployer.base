@@ -74,7 +74,7 @@ final class SkippableByOptionTest extends TestCase {
       SkippableByOption::OPTION_SHORTCUT_NAME,
       iInput::OPTION_VALUE_NONE,
       'If the option is set the host check is skipped',
-      true
+      null
     );
 
     $this->sut = new SkippableByOption($hostCheck, $deployerFunctions);

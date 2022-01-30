@@ -32,7 +32,7 @@ final class SkippableByOption implements iHostCheck {
     public iHostCheck $hostCheck,
     public iInput     $deployerFunctions = new All()
   ) {
-    $deployerFunctions->option(self::OPTION_NAME, self::OPTION_SHORTCUT_NAME, iInput::OPTION_VALUE_NONE, 'If the option is set the host check is skipped', true);
+    $deployerFunctions->option(self::OPTION_NAME, self::OPTION_SHORTCUT_NAME, iInput::OPTION_VALUE_NONE, 'If the option is set the host check is skipped');
   }
 
   public function check() : void {
