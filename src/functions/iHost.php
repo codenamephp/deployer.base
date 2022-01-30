@@ -18,7 +18,6 @@
 namespace de\codenamephp\deployer\base\functions;
 
 use Deployer\Host\Host;
-use Deployer\Support\ObjectProxy;
 
 /**
  * Interface for the Deployer\host method
@@ -40,7 +39,7 @@ interface iHost {
    * ```
    *
    * @param string ...$hostname One or multiple hostnames of the host(s) to get/define
-   * @return Host|ObjectProxy
+   * @return Host|Host[]
    */
-  public function host(string ...$hostname) : Host|ObjectProxy;
+  public function host(string ...$hostname) : Host|array;
 }

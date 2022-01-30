@@ -17,6 +17,7 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use Closure;
 use Deployer\Deployer;
 use Deployer\Host\Host;
 use Deployer\Host\Localhost;
@@ -60,8 +61,22 @@ final class All implements iAll {
     return get($name, $default);
   }
 
-  public function host(string ...$hostname) : Host|ObjectProxy {
-    return \Deployer\host(...$hostname);
+  public function host(string ...$hostname) : Host|array {
+    $host = \Deployer\host(...$hostname);
+    if($host instanceof ObjectProxy) {
+      /**
+       * We need to hack a little since ObjectProxy doesn't expose the contained objects
+       *
+       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty
+       */
+      $host = array_values(
+        array_filter(
+          (array) Closure::bind(static fn(ObjectProxy $objectProxy) : array => $objectProxy->objects, null, $host)($host),
+          static fn(mixed $host) : bool => $host instanceof Localhost
+        )
+      );
+    }
+    return $host;
   }
 
   public function getOption(string $name, mixed $default = null) : mixed {
@@ -80,8 +95,22 @@ final class All implements iAll {
     Deployer::get()->inputDefinition->addArgument(new InputArgument($name, $mode, $description, $default));
   }
 
-  public function localhost(string ...$hostname) : Localhost|ObjectProxy {
-    return \Deployer\localhost(...$hostname);
+  public function localhost(string ...$hostname) : Localhost|array {
+    $localhost = \Deployer\localhost(...$hostname);
+    if($localhost instanceof ObjectProxy) {
+      /**
+       * We need to hack a little since ObjectProxy doesn't expose the contained objects
+       *
+       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty
+       */
+      $localhost = array_values(
+        array_filter(
+          (array) Closure::bind(static fn(ObjectProxy $objectProxy) : array => $objectProxy->objects, null, $localhost)($localhost),
+          static fn(mixed $localhost) : bool => $localhost instanceof Localhost
+        )
+      );
+    }
+    return $localhost;
   }
 
   public function on(Host|array $hosts, callable $callback) : void {

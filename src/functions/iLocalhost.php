@@ -18,7 +18,6 @@
 namespace de\codenamephp\deployer\base\functions;
 
 use Deployer\Host\Localhost;
-use Deployer\Support\ObjectProxy;
 
 /**
  * Interface for the Deployer\localhost method
@@ -29,7 +28,7 @@ interface iLocalhost {
    * Similar to host() but only gets a localhost for local task execution
    *
    * @param string ...$hostname
-   * @return Localhost|ObjectProxy
+   * @return Localhost|Localhost[]
    */
-  public function localhost(string ...$hostname) : Localhost|ObjectProxy;
+  public function localhost(string ...$hostname) : Localhost|array;
 }
