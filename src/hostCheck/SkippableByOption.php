@@ -36,7 +36,6 @@ final class SkippableByOption implements iHostCheck {
   }
 
   public function check() : void {
-    $this->deployerFunctions->getOption(self::OPTION_NAME, false) && $this->hostCheck->check();
+    $this->deployerFunctions->getOption(self::OPTION_NAME, false) || $this->hostCheck->check();
   }
-
 }

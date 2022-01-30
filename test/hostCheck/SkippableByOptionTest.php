@@ -40,17 +40,17 @@ final class SkippableByOptionTest extends TestCase {
     $this->sut->deployerFunctions->expects(self::once())->method('getOption')->with(SkippableByOption::OPTION_NAME, false)->willReturn(false);
 
     $this->sut->hostCheck = $this->createMock(iHostCheck::class);
-    $this->sut->hostCheck->expects(self::never())->method('check');
+    $this->sut->hostCheck->expects(self::once())->method('check');
 
     $this->sut->check();
   }
 
-  public function testCheck_canCallDecorated_whenOptionIsNotSet() : void {
+  public function testCheck_willSkipDecorated_whenOptionIsNotSet() : void {
     $this->sut->deployerFunctions = $this->createMock(iInput::class);
     $this->sut->deployerFunctions->expects(self::once())->method('getOption')->with(SkippableByOption::OPTION_NAME, false)->willReturn(true);
 
     $this->sut->hostCheck = $this->createMock(iHostCheck::class);
-    $this->sut->hostCheck->expects(self::once())->method('check');
+    $this->sut->hostCheck->expects(self::never())->method('check');
 
     $this->sut->check();
   }
