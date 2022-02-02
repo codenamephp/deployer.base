@@ -32,6 +32,7 @@ use function Deployer\get;
 use function Deployer\input;
 use function Deployer\on;
 use function Deployer\option;
+use function Deployer\parse;
 use function Deployer\run;
 use function Deployer\set;
 use function Deployer\upload;
@@ -115,6 +116,16 @@ final class All implements iAll {
 
   public function on(Host|array $hosts, callable $callback) : void {
     on($hosts, $callback);
+  }
+
+  public function parse(string $value) : string {
+    return parse($value);
+  }
+
+  public function parseOnHost(Host $host, string $value) : string {
+    $finalValue = '';
+    $this->on($host, function() use (&$finalValue, $value) { $finalValue = $this->parse($value); });
+    return $finalValue;
   }
 
   public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string {

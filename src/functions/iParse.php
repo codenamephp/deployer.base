@@ -17,11 +17,27 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iAfter, iCurrentHost, iDownload, iGet, iHost, iInput, iLocalhost, iOn, iParse, iRun, iSet, iTask, iUpload {
+use Deployer\Host\Host;
 
+/**
+ * Interface for the Deployer\parse function
+ */
+interface iParse {
+
+  /**
+   * Parses a value and replaces all placeholders with values from the curren thost
+   *
+   * @param string $value The value to parse (containing the placeholders)
+   * @return string The parsed value
+   */
+  public function parse(string $value) : string;
+
+  /**
+   * Parses the given value on the host replacing the placeholders with the host specific values
+   *
+   * @param Host $host The host to parse the value on
+   * @param string $value The value to parse (containing the placeholders)
+   * @return string The parsed value
+   */
+  public function parseOnHost(Host $host, string $value) : string;
 }
