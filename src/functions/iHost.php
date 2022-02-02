@@ -17,6 +17,7 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use de\codenamephp\deployer\base\MissingConfigurationException;
 use Deployer\Host\Host;
 
 /**
@@ -42,4 +43,13 @@ interface iHost {
    * @return Host|Host[]
    */
   public function host(string ...$hostname) : Host|array;
+
+  /**
+   * Same as host but only returns the first host that was found. If no host was found a MissingConfigurationException must be thrown
+   *
+   * @param string ...$hostname
+   * @return Host
+   * @throws MissingConfigurationException
+   */
+  public function firstHost(string ...$hostname) : Host;
 }

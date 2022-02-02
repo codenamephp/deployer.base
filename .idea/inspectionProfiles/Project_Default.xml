@@ -75,6 +75,9 @@
       <option name="INSTALLED_PATHS" value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility/PHPCompatibility" />
       <option name="EXTENSIONS" value="php,js,css,inc" />
     </inspection_tool>
+    <inspection_tool class="PhpUnhandledExceptionInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="Tests" level="INFORMATION" enabled="true" />
+    </inspection_tool>
     <inspection_tool class="SecurityAdvisoriesInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="optionConfiguration">
         <list>

@@ -18,6 +18,7 @@
 namespace de\codenamephp\deployer\base\functions;
 
 use Closure;
+use de\codenamephp\deployer\base\MissingConfigurationException;
 use Deployer\Deployer;
 use Deployer\Host\Host;
 use Deployer\Host\Localhost;
@@ -64,21 +65,28 @@ final class All implements iAll {
   }
 
   public function host(string ...$hostname) : Host|array {
-    $host = \Deployer\host(...$hostname);
-    if($host instanceof ObjectProxy) {
+    $hostOrHosts = \Deployer\host(...$hostname);
+    if($hostOrHosts instanceof ObjectProxy) {
       /**
        * We need to hack a little since ObjectProxy doesn't expose the contained objects
        *
        * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty
        */
-      $host = array_values(
+      $hostOrHosts = array_values(
         array_filter(
-          (array) Closure::bind(static fn(ObjectProxy $objectProxy) : array => $objectProxy->objects, null, $host)($host),
-          static fn(mixed $host) : bool => $host instanceof Localhost
+          (array) Closure::bind(static fn(ObjectProxy $objectProxy) : array => $objectProxy->objects, null, $hostOrHosts)($hostOrHosts),
+          static fn(mixed $host) : bool => $host instanceof Host
         )
       );
     }
-    return $host;
+    return $hostOrHosts;
+  }
+
+  public function firstHost(string ...$hostname) : Host {
+    $hostOrHosts = $this->host(...$hostname);
+    if($hostOrHosts === []) throw new MissingConfigurationException(sprintf('No hosts were found for the given hostnames: [%s]', implode(',', $hostname)));
+
+    return is_array($hostOrHosts) ? array_values($hostOrHosts)[0] : $hostOrHosts;
   }
 
   public function getOption(string $name, mixed $default = null) : mixed {
@@ -126,7 +134,7 @@ final class All implements iAll {
   public function parseOnHost(Host $host, string $value) : string {
     $finalValue = '';
     $this->on($host, function() use (&$finalValue, $value) { $finalValue = $this->parse($value); });
-    return $finalValue;
+    return (string) $finalValue;
   }
 
   public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string {
