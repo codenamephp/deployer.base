@@ -56,4 +56,26 @@ interface iRun {
    * @throws Exception|RunException|TimeoutException
    */
   public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string;
+
+  /**
+   * Execute commands on a local machine.
+   *
+   * Examples:
+   *
+   * ```php
+   * $user = runLocally('git config user.name');
+   * runLocally("echo $user");
+   * ```
+   *
+   * @param string $command Command to run on localhost.
+   * @param array|null $options Array of options will override passed named arguments.
+   * @param int|null $timeout Sets the process timeout (max. runtime). The timeout in seconds (default: 300 sec, `null` to disable).
+   * @param int|null $idle_timeout Sets the process idle timeout (max. time since last output) in seconds.
+   * @param string|null $secret Placeholder `%secret%` can be used in command. Placeholder will be replaced with this value and will not appear in any logs.
+   * @param array|null $env Array of environment variables: `runLocally('echo $KEY', env: ['key' => 'value']);`
+   * @param string|null $shell Shell to run in. Default is `bash -s`.
+   *
+   * @throws RunException
+   */
+  public function runLocally(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?string $shell = null) : string;
 }
