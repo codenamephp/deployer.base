@@ -17,6 +17,7 @@
 
 namespace de\codenamephp\deployer\base\test\taskMatcher\collection;
 
+use de\codenamephp\deployer\base\taskMatcher\collection\AtLeastOne;
 use de\codenamephp\deployer\base\taskMatcher\iTaskMatcher;
 use Deployer\Task\Task;
 use PHPUnit\Framework\TestCase;

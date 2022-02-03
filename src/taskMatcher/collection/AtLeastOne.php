@@ -15,7 +15,7 @@
  *   limitations under the License.
  */
 
-namespace de\codenamephp\deployer\base\test\taskMatcher\collection;
+namespace de\codenamephp\deployer\base\taskMatcher\collection;
 
 use de\codenamephp\deployer\base\taskMatcher\iTaskMatcher;
 use Deployer\Task\Task;
@@ -25,10 +25,16 @@ use Deployer\Task\Task;
  */
 final class AtLeastOne implements iTaskMatcher {
 
+  /**
+   * @var iTaskMatcher[]
+   */
   private array $taskMatcher;
 
   public function __construct(iTaskMatcher ...$taskMatcher) { $this->taskMatcher = $taskMatcher; }
 
+  /**
+   * @return iTaskMatcher[]
+   */
   public function getTaskMatcher() : array {
     return $this->taskMatcher;
   }
