@@ -30,16 +30,17 @@ use Deployer\Exception\RunException;
  */
 final class Pull implements iTask {
 
-  public iDownload $deployerFunctions;
-
   /**
    * @var array<iTransferable>
    */
   private array $transferables;
 
-  public function __construct(iTransferable ...$transferables) {
-    $this->transferables = $transferables;
-    $this->deployerFunctions = new All();
+  /**
+   * @param array<iTransferable> $transferables The transferables to pull
+   * @param iDownload $deployerFunctions Executes the download
+   */
+  public function __construct(array $transferables, public iDownload $deployerFunctions = new All()) {
+    $this->setTransferables(...$transferables);
   }
 
   /**

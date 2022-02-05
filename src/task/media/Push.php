@@ -21,6 +21,7 @@ use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\hostCheck\DoNotRunOnProduction;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
+use de\codenamephp\deployer\base\hostCheck\SkippableByOption;
 use de\codenamephp\deployer\base\task\iTask;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use de\codenamephp\deployer\base\UnsafeOperationException;
@@ -33,19 +34,20 @@ use Deployer\Exception\RunException;
  */
 final class Push implements iTask {
 
-  public iUpload $deployerFunctions;
-
-  public iHostCheck $hostCheck;
-
   /**
    * @var array<iTransferable>
    */
   private array $transferables;
 
-  public function __construct(iTransferable ...$transferables) {
-    $this->transferables = $transferables;
-    $this->deployerFunctions = new All();
-    $this->hostCheck = new DoNotRunOnProduction();
+  /**
+   * @param array<iTransferable> $transferables The transferables to push
+   * @param iUpload $deployerFunctions Executes the upload
+   * @param iHostCheck $hostCheck Makes sure that the task is not accidentally executed on production
+   */
+  public function __construct(array             $transferables,
+                              public iUpload    $deployerFunctions = new All(),
+                              public iHostCheck $hostCheck = new SkippableByOption(new DoNotRunOnProduction())) {
+    $this->setTransferables(...$transferables);
   }
 
   /**

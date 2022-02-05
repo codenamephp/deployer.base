@@ -17,9 +17,7 @@
 
 namespace de\codenamephp\deployer\base\test\task\media;
 
-use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iUpload;
-use de\codenamephp\deployer\base\hostCheck\DoNotRunOnProduction;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
 use de\codenamephp\deployer\base\task\media\Push;
 use de\codenamephp\deployer\base\transferable\iTransferable;
@@ -32,18 +30,23 @@ final class PushTest extends TestCase {
   protected function setUp() : void {
     parent::setUp();
 
-    $this->sut = new Push();
+    $deployerFunctions = $this->createMock(iUpload::class);
+    $hostCheck = $this->createMock(iHostCheck::class);
+
+    $this->sut = new Push([], $deployerFunctions, $hostCheck);
   }
 
   public function test__construct() : void {
     $transferables1 = $this->createMock(iTransferable::class);
     $transferables2 = $this->createMock(iTransferable::class);
+    $deployerFunctions = $this->createMock(iUpload::class);
+    $hostCheck = $this->createMock(iHostCheck::class);
 
-    $this->sut = new Push($transferables1, $transferables2);
+    $this->sut = new Push([$transferables1, $transferables2], $deployerFunctions, $hostCheck);
 
     self::assertSame([$transferables1, $transferables2], $this->sut->getTransferables());
-    self::assertInstanceOf(All::class, $this->sut->deployerFunctions);
-    self::assertInstanceOf(DoNotRunOnProduction::class, $this->sut->hostCheck);
+    self::assertSame($deployerFunctions, $this->sut->deployerFunctions);
+    self::assertSame($hostCheck, $this->sut->hostCheck);
   }
 
   public function test__invoke() : void {

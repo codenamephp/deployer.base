@@ -30,15 +30,26 @@ final class PullTest extends TestCase {
   protected function setUp() : void {
     parent::setUp();
 
-    $this->sut = new Pull();
+    $deployerFunctions = $this->createMock(iDownload::class);
+
+    $this->sut = new Pull([], $deployerFunctions);
   }
 
   public function test__construct() : void {
     $transferable1 = $this->createMock(iTransferable::class);
     $transferable2 = $this->createMock(iTransferable::class);
-    $this->sut = new Pull($transferable1, $transferable2);
+    $deployerFunctions = $this->createMock(iDownload::class);
+
+    $this->sut = new Pull([$transferable1, $transferable2], $deployerFunctions);
 
     self::assertSame([$transferable1, $transferable2], $this->sut->getTransferables());
+    self::assertSame($deployerFunctions, $this->sut->deployerFunctions);
+  }
+
+  public function test__construct_withoutOptionalParameters() : void {
+    $this->sut = new Pull([]);
+
+    self::assertSame([], $this->sut->getTransferables());
     self::assertInstanceOf(All::class, $this->sut->deployerFunctions);
   }
 
