@@ -72,4 +72,12 @@ final class PullTest extends TestCase {
 
     $this->sut->__invoke();
   }
+
+  public function testGetName() : void {
+    self::assertEquals(Pull::NAME, $this->sut->getName());
+  }
+
+  public function testGetDescription() : void {
+    self::assertEquals('Pull the media from remote to local.', $this->sut->getDescription());
+  }
 }

@@ -71,4 +71,12 @@ final class PushTest extends TestCase {
 
     $this->sut->__invoke();
   }
+
+  public function testGetName() : void {
+    self::assertEquals(Push::NAME, $this->sut->getName());
+  }
+
+  public function testGetDescription() : void {
+    self::assertEquals('Pushes media from local to remote.', $this->sut->getDescription());
+  }
 }

@@ -26,7 +26,8 @@ use de\codenamephp\deployer\base\iConfigurationKeys;
 use de\codenamephp\deployer\base\MissingConfigurationException;
 use de\codenamephp\deployer\base\ssh\client\iClient;
 use de\codenamephp\deployer\base\ssh\client\StaticProxy;
-use de\codenamephp\deployer\base\task\iTask;
+use de\codenamephp\deployer\base\task\iTaskWithDescription;
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use de\codenamephp\deployer\base\UnsafeOperationException;
 use Deployer\Exception\RunException;
@@ -37,9 +38,10 @@ use Deployer\Exception\RunException;
  *
  * @psalm-suppress PropertyNotSetInConstructor see https://github.com/vimeo/psalm/issues/4393
  */
-final class Copy implements iTask {
+final class Copy implements iTaskWithName, iTaskWithDescription {
 
   public const OPTION_SOURCE_HOST = 'cpd:media:copy:sourceHost';
+  public const NAME = 'media:copy';
 
   /**
    * @var array<iTransferable>
@@ -65,16 +67,8 @@ final class Copy implements iTask {
     );
   }
 
-  /**
-   * @return iTransferable[]
-   */
-  public function getTransferables() : array {
-    return $this->transferables;
-  }
-
-  public function setTransferables(iTransferable ...$transferables) : Copy {
-    $this->transferables = $transferables;
-    return $this;
+  public function getDescription() : string {
+    return 'Copies the media from one remote to another. The copy is done using rsync directly between the hosts.';
   }
 
   /**
@@ -108,5 +102,21 @@ final class Copy implements iTask {
 
       $this->deployerFunctions->runLocally(sprintf('%s "%s"', $sshCommand, sprintf($rsyncCommand, implode(' ', $transferable->getConfig()['options'] ?? []), $sourcePath, $targetPath)));
     }
+  }
+
+  public function getName() : string {
+    return self::NAME;
+  }
+
+  /**
+   * @return iTransferable[]
+   */
+  public function getTransferables() : array {
+    return $this->transferables;
+  }
+
+  public function setTransferables(iTransferable ...$transferables) : Copy {
+    $this->transferables = $transferables;
+    return $this;
   }
 }

@@ -116,4 +116,12 @@ final class CopyTest extends TestCase {
 
     $this->sut->__invoke();
   }
+
+  public function testGetName() : void {
+    self::assertEquals(Copy::NAME, $this->sut->getName());
+  }
+
+  public function testGetDescription() : void {
+    self::assertEquals('Copies the media from one remote to another. The copy is done using rsync directly between the hosts.', $this->sut->getDescription());
+  }
 }

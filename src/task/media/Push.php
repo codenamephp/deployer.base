@@ -22,7 +22,8 @@ use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\hostCheck\DoNotRunOnProduction;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
 use de\codenamephp\deployer\base\hostCheck\SkippableByOption;
-use de\codenamephp\deployer\base\task\iTask;
+use de\codenamephp\deployer\base\task\iTaskWithDescription;
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use de\codenamephp\deployer\base\UnsafeOperationException;
 use Deployer\Exception\RunException;
@@ -32,7 +33,9 @@ use Deployer\Exception\RunException;
  *
  * @psalm-suppress PropertyNotSetInConstructor see https://github.com/vimeo/psalm/issues/4393
  */
-final class Push implements iTask {
+final class Push implements iTaskWithName, iTaskWithDescription {
+
+  public const NAME = 'media:push';
 
   /**
    * @var array<iTransferable>
@@ -60,6 +63,14 @@ final class Push implements iTask {
   public function setTransferables(iTransferable ...$transferables) : Push {
     $this->transferables = $transferables;
     return $this;
+  }
+
+  public function getDescription() : string {
+    return 'Pushes media from local to remote.';
+  }
+
+  public function getName() : string {
+    return self::NAME;
   }
 
   /**

@@ -19,7 +19,8 @@ namespace de\codenamephp\deployer\base\task\media;
 
 use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iDownload;
-use de\codenamephp\deployer\base\task\iTask;
+use de\codenamephp\deployer\base\task\iTaskWithDescription;
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use Deployer\Exception\RunException;
 
@@ -28,7 +29,9 @@ use Deployer\Exception\RunException;
  *
  * @psalm-suppress PropertyNotSetInConstructor see https://github.com/vimeo/psalm/issues/4393
  */
-final class Pull implements iTask {
+final class Pull implements iTaskWithName, iTaskWithDescription {
+
+  public const NAME = 'media:pull';
 
   /**
    * @var array<iTransferable>
@@ -43,16 +46,8 @@ final class Pull implements iTask {
     $this->setTransferables(...$transferables);
   }
 
-  /**
-   * @return iTransferable[]
-   */
-  public function getTransferables() : array {
-    return $this->transferables;
-  }
-
-  public function setTransferables(iTransferable ...$transferables) : Pull {
-    $this->transferables = $transferables;
-    return $this;
+  public function getDescription() : string {
+    return 'Pull the media from remote to local.';
   }
 
   /**
@@ -65,5 +60,21 @@ final class Pull implements iTask {
     foreach($this->getTransferables() as $transferable) {
       $this->deployerFunctions->download($transferable->getRemotePath(), $transferable->getLocalPath(), $transferable->getConfig());
     }
+  }
+
+  public function getName() : string {
+    return self::NAME;
+  }
+
+  /**
+   * @return iTransferable[]
+   */
+  public function getTransferables() : array {
+    return $this->transferables;
+  }
+
+  public function setTransferables(iTransferable ...$transferables) : Pull {
+    $this->transferables = $transferables;
+    return $this;
   }
 }

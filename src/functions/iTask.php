@@ -17,6 +17,7 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use Deployer\Task\Task;
 
 /**
@@ -33,4 +34,13 @@ interface iTask {
    * @param \de\codenamephp\deployer\base\task\iTask|callable|array|null $body Callable task, array of other tasks names or nothing to get a defined tasks
    */
   public function task(string $name, \de\codenamephp\deployer\base\task\iTask|callable|array|null $body = null) : Task;
+
+  /**
+   * Registers a task with deployer. The task itself is used as body and the name is the identifier that the task is registered with. Implementations should
+   * support the iTaskWithDescription interface and add the description as well if the task has the interface.
+   *
+   * @param iTaskWithName $task The task to register with deployer
+   * @return void
+   */
+  public function registerTask(iTaskWithName $task) : void;
 }

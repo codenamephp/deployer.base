@@ -19,6 +19,8 @@ namespace de\codenamephp\deployer\base\functions;
 
 use Closure;
 use de\codenamephp\deployer\base\MissingConfigurationException;
+use de\codenamephp\deployer\base\task\iTaskWithDescription;
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use Deployer\Deployer;
 use Deployer\Host\Host;
 use Deployer\Host\Localhost;
@@ -151,6 +153,11 @@ final class All implements iAll {
 
   public function task(string $name, callable|array|\de\codenamephp\deployer\base\task\iTask|null $body = null) : Task {
     return \Deployer\task($name, $body);
+  }
+
+  public function registerTask(iTaskWithName $task) : void {
+    $registeredTask = $this->task($task->getName(), $task);
+    if($task instanceof iTaskWithDescription) $registeredTask->desc($task->getDescription());
   }
 
   public function upload(string $source, string $destination, array $config = []) : void {
