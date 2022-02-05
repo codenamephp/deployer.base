@@ -79,4 +79,12 @@ final class UploadTransferablesTest extends TestCase {
     self::assertInstanceOf(All::class, $this->sut->deployerFunctions);
     self::assertEquals([$transferable1, $transferable2, $transferable3], $this->sut->getTransferables());
   }
+
+  public function testGetName() : void {
+    self::assertEquals(UploadTransferables::NAME, $this->sut->getName());
+  }
+
+  public function testGetDescription() : void {
+    self::assertEquals('Updates the code on the remote machine.', $this->sut->getDescription());
+  }
 }

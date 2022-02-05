@@ -19,13 +19,16 @@ namespace de\codenamephp\deployer\base\task\deploy\updateCode;
 
 use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iUpload;
-use de\codenamephp\deployer\base\task\iTask;
+use de\codenamephp\deployer\base\task\iTaskWithDescription;
+use de\codenamephp\deployer\base\task\iTaskWithName;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 
 /**
  * Uses a collection of transferables and the deployer upload function to update the code on remote.
  */
-final class UploadTransferables implements iTask {
+final class UploadTransferables implements iTaskWithName, iTaskWithDescription {
+
+  public const NAME = 'deploy:update_code';
 
   public iUpload $deployerFunctions;
 
@@ -51,9 +54,17 @@ final class UploadTransferables implements iTask {
     return $this;
   }
 
+  public function getDescription() : string {
+    return 'Updates the code on the remote machine.';
+  }
+
   public function __invoke() : void {
     foreach($this->transferables as $transferable) {
       $this->deployerFunctions->upload($transferable->getLocalPath(), $transferable->getRemotePath(), $transferable->getConfig());
     }
+  }
+
+  public function getName() : string {
+    return self::NAME;
   }
 }
