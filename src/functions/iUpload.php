@@ -17,6 +17,11 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
+use Deployer\Exception\RunException;
+
+/**
+ * Interface for the Deployer\upload method
+ */
 interface iUpload {
 
   /**
@@ -24,6 +29,7 @@ interface iUpload {
    * @param string $destination The path on the remote machine
    * @param array{flags?: string, options?: array, timeout?: int|null, progress_bar?: bool, display_stats?: bool} $config Config for the transfer
    * @return void
+   * @throws RunException
    */
   public function upload(string $source, string $destination, array $config = []) : void;
 }
