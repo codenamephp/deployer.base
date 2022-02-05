@@ -54,9 +54,9 @@ final class PullTest extends TestCase {
       ->expects(self::exactly(3))
       ->method('download')
       ->withConsecutive(
-        ['local1', 'remote1', ['config1']],
-        ['local2', 'remote2', ['config2']],
-        ['local3', 'remote3', ['config3']],
+        ['remote1', 'local1', ['config1']],
+        ['remote2', 'local2', ['config2']],
+        ['remote3', 'local3', ['config3']],
       );
 
     $this->sut->__invoke();

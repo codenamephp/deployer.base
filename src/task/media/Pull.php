@@ -62,7 +62,7 @@ final class Pull implements iTask {
    */
   public function __invoke() : void {
     foreach($this->getTransferables() as $transferable) {
-      $this->deployerFunctions->download($transferable->getLocalPath(), $transferable->getRemotePath(), $transferable->getConfig());
+      $this->deployerFunctions->download($transferable->getRemotePath(), $transferable->getLocalPath(), $transferable->getConfig());
     }
   }
 }
