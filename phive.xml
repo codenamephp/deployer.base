@@ -15,10 +15,10 @@
   ~   limitations under the License.
   -->
 <phive xmlns="https://phar.io/phive">
-  <phar name="phpunit" version="^9.5" installed="9.5.13" location="./tools/phpunit.phar" copy="true"/>
-  <phar name="psalm" version="^4.20" installed="4.20.0" location="./tools/psalm" copy="true"/>
+  <phar name="phpunit" version="^9.5" installed="9.5.21" location="./tools/phpunit.phar" copy="true"/>
+  <phar name="psalm" version="^4.20" installed="4.25.0" location="./tools/psalm" copy="true"/>
   <phar name="composer-unused" version="^0.7" installed="0.7.12" location="./tools/composer-unused" copy="true"/>
   <phar name="composer-require-checker" version="^2.1.0" installed="2.1.0" location="./tools/composer-require-checker" copy="true"/>
-  <phar name="infection" version="^0.26" installed="0.26.4" location="./tools/infection" copy="true"/>
+  <phar name="infection" version="^0.26" installed="0.26.13" location="./tools/infection" copy="true"/>
   <phar name="php-cs-fixer" version="^2.19" installed="2.19.3" location="./tools/php-cs-fixer" copy="true"/>
 </phive>
