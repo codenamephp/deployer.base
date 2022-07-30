@@ -21,7 +21,6 @@ use de\codenamephp\deployer\base\functions\iAll;
 use de\codenamephp\deployer\base\functions\iInput;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
 use de\codenamephp\deployer\base\iConfigurationKeys;
-use de\codenamephp\deployer\base\ssh\client\iClient;
 use de\codenamephp\deployer\base\task\media\Copy;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use Deployer\Host\Host;
@@ -53,14 +52,12 @@ final class CopyTest extends TestCase {
 
     $transferables = [$this->createMock(iTransferable::class), $this->createMock(iTransferable::class)];
     $hostCheck = $this->createMock(iHostCheck::class);
-    $sshClient = $this->createMock(iClient::class);
 
-    $this->sut = new Copy($transferables, $deployerFunctions, $hostCheck, $sshClient);
+    $this->sut = new Copy($transferables, $deployerFunctions, $hostCheck);
 
     self::assertSame($transferables, $this->sut->getTransferables());
     self::assertSame($deployerFunctions, $this->sut->deployerFunctions);
     self::assertSame($hostCheck, $this->sut->hostCheck);
-    self::assertSame($sshClient, $this->sut->sshClient);
   }
 
   public function test__invoke() : void {
@@ -68,17 +65,12 @@ final class CopyTest extends TestCase {
     $this->sut->hostCheck->expects(self::once())->method('check');
 
     $sourceHost = $this->createMock(Host::class);
-    $sourceHost->expects(self::once())->method('getConnectionString')->willReturn('source_connection_string');
+    $sourceHost->expects(self::once())->method('connectionString')->willReturn('source_connection_string');
+    $sourceHost->expects(self::once())->method('connectionOptionsString')->willReturn('source_ssh_arguments');
 
     $targetHost = $this->createMock(Host::class);
-    $targetHost->expects(self::once())->method('getConnectionString')->willReturn('target_connection_string');
-
-    $this->sut->sshClient = $this->createMock(iClient::class);
-    $this->sut->sshClient
-      ->expects(self::exactly(2))
-      ->method('connectionOptionsString')
-      ->withConsecutive([$sourceHost], [$targetHost])
-      ->willReturn('source_ssh_arguments', 'target_ssh_arguments');
+    $targetHost->expects(self::once())->method('connectionString')->willReturn('target_connection_string');
+    $targetHost->expects(self::once())->method('connectionOptionsString')->willReturn('target_ssh_arguments');
 
     $transferable1 = $this->createMock(iTransferable::class);
     $transferable1->expects(self::once())->method('getLocalPath')->willReturn('source_path_1');

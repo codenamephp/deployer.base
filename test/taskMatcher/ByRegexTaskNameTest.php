@@ -41,7 +41,7 @@ final class ByRegexTaskNameTest extends TestCase {
     $task3 = $this->createMock(Task::class);
     $task3->expects(self::once())->method('getName')->willReturn('not:that');
     $task4 = $this->createMock(Task::class);
-    $task4->expects(self::once())->method('getName')->willReturn(null);
+    $task4->expects(self::once())->method('getName')->willReturn('');
 
     self::assertTrue($this->sut->matches($task1));
     self::assertTrue($this->sut->matches($task2));

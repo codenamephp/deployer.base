@@ -24,8 +24,6 @@ use de\codenamephp\deployer\base\hostCheck\DoNotRunOnProduction;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
 use de\codenamephp\deployer\base\iConfigurationKeys;
 use de\codenamephp\deployer\base\MissingConfigurationException;
-use de\codenamephp\deployer\base\ssh\client\iClient;
-use de\codenamephp\deployer\base\ssh\client\StaticProxy;
 use de\codenamephp\deployer\base\task\iTaskWithDescription;
 use de\codenamephp\deployer\base\task\iTaskWithName;
 use de\codenamephp\deployer\base\transferable\iTransferable;
@@ -55,8 +53,7 @@ final class Copy implements iTaskWithName, iTaskWithDescription {
    */
   public function __construct(array             $transferables,
                               public iAll       $deployerFunctions = new All(),
-                              public iHostCheck $hostCheck = new DoNotRunOnProduction(),
-                              public iClient    $sshClient = new StaticProxy()) {
+                              public iHostCheck $hostCheck = new DoNotRunOnProduction()) {
     $this->setTransferables(...$transferables);
     $deployerFunctions->option(
       self::OPTION_SOURCE_HOST,
@@ -93,8 +90,8 @@ final class Copy implements iTaskWithName, iTaskWithDescription {
     $sourceHost = $this->deployerFunctions->firstHost((string) $this->deployerFunctions->getOption(self::OPTION_SOURCE_HOST));
     $targetHost = $this->deployerFunctions->currentHost();
 
-    $sshCommand = "ssh {$this->sshClient->connectionOptionsString($sourceHost)} {$sourceHost->getConnectionString()}";
-    $rsyncCommand = "rsync -e 'ssh -o StrictHostKeyChecking=no {$this->sshClient->connectionOptionsString($targetHost)}' -azP %s %s {$targetHost->getConnectionString()}:%s";
+    $sshCommand = "ssh {$sourceHost->connectionOptionsString()} {$sourceHost->connectionString()}";
+    $rsyncCommand = "rsync -e 'ssh -o StrictHostKeyChecking=no {$targetHost->connectionOptionsString()}' -azP %s %s {$targetHost->connectionString()}:%s";
 
     foreach($this->getTransferables() as $transferable) {
       $sourcePath = $this->deployerFunctions->parseOnHost($sourceHost, $transferable->getLocalPath());
