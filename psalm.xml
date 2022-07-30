@@ -30,12 +30,7 @@
     </ignoreFiles>
   </projectFiles>
 
-  <extraFiles>
-    <file name="./deployer.phar"/>
-  </extraFiles>
-
-  <issueHandlers>
-    <MissingConstructor errorLevel="suppress"/>
-    <PropertyNotSetInConstructor errorLevel="suppress"/>
-  </issueHandlers>
+  <stubs>
+    <file name="vendor/deployer/deployer/src/functions.php"/>
+  </stubs>
 </psalm>

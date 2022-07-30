@@ -28,7 +28,7 @@ interface iAfter {
    * Call that task after specified task runs.
    *
    * @param string $task The task after $do should be run.
-   * @param \de\codenamephp\deployer\base\task\iTask|string|callable $do The task to be run.
+   * @param \de\codenamephp\deployer\base\task\iTask|string|callable():void $do The task to be run.
    *
    * @return Task|null
    */
