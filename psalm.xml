@@ -22,6 +22,7 @@
   xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
   cacheDirectory=".cache/psalm"
   errorLevel="1"
+  autoloader="./test/bootstrap.php"
 >
     <projectFiles>
         <directory name="src"/>
