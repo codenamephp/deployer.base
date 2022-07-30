@@ -31,7 +31,7 @@ interface iTask {
    * Alternatively get a defined task.
    *
    * @param string $name Name of current task.
-   * @param \de\codenamephp\deployer\base\task\iTask|callable|array|null $body Callable task, array of other tasks names or nothing to get a defined tasks
+   * @param \de\codenamephp\deployer\base\task\iTask|callable():void|array|null $body Callable task, array of other tasks names or nothing to get a defined tasks
    */
   public function task(string $name, \de\codenamephp\deployer\base\task\iTask|callable|array|null $body = null) : Task;
 

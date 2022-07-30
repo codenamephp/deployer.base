@@ -17,21 +17,20 @@
 
 <psalm
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  totallyTyped="true"
   xmlns="https://getpsalm.org/schema/config"
   xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
   cacheDirectory=".cache/psalm"
   errorLevel="1"
+  autoloader="./test/bootstrap.php"
 >
-    <projectFiles>
-        <directory name="src"/>
-        <ignoreFiles>
-            <directory name="vendor"/>
-        </ignoreFiles>
-    </projectFiles>
+  <projectFiles>
+    <directory name="src"/>
+    <ignoreFiles>
+      <directory name="vendor"/>
+    </ignoreFiles>
+  </projectFiles>
 
-    <issueHandlers>
-        <MissingConstructor errorLevel="suppress"/>
-        <PropertyNotSetInConstructor errorLevel="suppress"/>
-    </issueHandlers>
+  <stubs>
+    <file name="vendor/deployer/deployer/src/functions.php"/>
+  </stubs>
 </psalm>
