@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/codenamephp/deployer.base/tree/2.0.1) (2022-07-31)
+
+[Full Changelog](https://github.com/codenamephp/deployer.base/compare/2.0.0...2.0.1)
+
+**Merged pull requests:**
+
+- Fix version range for deployer [\#5](https://github.com/codenamephp/deployer.base/pull/5) ([bastianschwarz](https://github.com/bastianschwarz))
+
 ## [2.0.0](https://github.com/codenamephp/deployer.base/tree/2.0.0) (2022-07-30)
 
 [Full Changelog](https://github.com/codenamephp/deployer.base/compare/1.0.0...2.0.0)
