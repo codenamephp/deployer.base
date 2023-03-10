@@ -72,7 +72,7 @@ final class All implements iAll {
       /**
        * We need to hack a little since ObjectProxy doesn't expose the contained objects
        *
-       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty
+       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty,PossiblyNullFunctionCall
        */
       $hostOrHosts = array_values(
         array_filter(
@@ -113,7 +113,7 @@ final class All implements iAll {
       /**
        * We need to hack a little since ObjectProxy doesn't expose the contained objects
        *
-       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty
+       * @psalm-suppress PossiblyInvalidFunctionCall,InaccessibleProperty,PossiblyNullFunctionCall
        */
       $localhost = array_values(
         array_filter(
