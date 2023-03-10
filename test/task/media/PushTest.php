@@ -59,15 +59,10 @@ final class PushTest extends TestCase {
     $this->sut->hostCheck = $this->createMock(iHostCheck::class);
     $this->sut->hostCheck->expects(self::once())->method('check');
 
-    $this->sut->deployerFunctions = $this->createMock(iUpload::class);
-    $this->sut->deployerFunctions
-      ->expects(self::exactly(3))
-      ->method('upload')
-      ->withConsecutive(
-        ['local1', 'remote1', ['config1']],
-        ['local2', 'remote2', ['config2']],
-        ['local3', 'remote3', ['config3']],
-      );
+    $this->sut->deployerFunctions = \Mockery::mock(iUpload::class);
+    $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local1', 'remote1', ['config1']);
+    $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local2', 'remote2', ['config2']);
+    $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local3', 'remote3', ['config3']);
 
     $this->sut->__invoke();
   }
