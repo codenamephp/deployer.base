@@ -21,9 +21,13 @@ use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\task\deploy\updateCode\UploadTransferables;
 use de\codenamephp\deployer\base\transferable\iTransferable;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class UploadTransferablesTest extends TestCase {
+
+  use MockeryPHPUnitIntegration;
 
   private UploadTransferables $sut;
 
@@ -35,15 +39,10 @@ final class UploadTransferablesTest extends TestCase {
   }
 
   public function test__invoke() : void {
-    $this->sut->deployerFunctions = $this->createMock(iUpload::class);
-    $this->sut->deployerFunctions
-      ->expects(self::exactly(3))
-      ->method('upload')
-      ->withConsecutive(
-        ['local path 1', 'remote path 1', ['config 1']],
-        ['local path 2', 'remote path 2', ['config 2']],
-        ['local path 3', 'remote path 3', ['config 3']],
-      );
+    $this->sut->deployerFunctions = Mockery::mock(iUpload::class);
+    $this->sut->deployerFunctions->allows('upload')->with('local path 1', 'remote path 1', ['config 1'])->once()->ordered();
+    $this->sut->deployerFunctions->allows('upload')->with('local path 2', 'remote path 2', ['config 2'])->once()->ordered();
+    $this->sut->deployerFunctions->allows('upload')->with('local path 3', 'remote path 3', ['config 3'])->once()->ordered();
 
     $transferable1 = $this->createMock(iTransferable::class);
     $transferable1->expects(self::once())->method('getLocalPath')->willReturn('local path 1');
