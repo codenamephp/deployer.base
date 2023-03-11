@@ -34,6 +34,7 @@ use function Deployer\before;
 use function Deployer\currentHost;
 use function Deployer\download;
 use function Deployer\get;
+use function Deployer\info;
 use function Deployer\input;
 use function Deployer\on;
 use function Deployer\option;
@@ -173,5 +174,9 @@ final class All implements iAll {
 
   public function within(string $path, callable $callback) : mixed {
     return within($path, $callback);
+  }
+
+  public function info(string $message) : void {
+    info($message);
   }
 }
