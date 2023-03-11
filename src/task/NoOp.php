@@ -18,24 +18,33 @@
 namespace de\codenamephp\deployer\base\task;
 
 use Closure;
+use de\codenamephp\deployer\base\functions\All;
+use de\codenamephp\deployer\base\functions\iInfo;
 
 /**
  * This task does nothing. It is used to create a task that does nothing but is not null.
  */
 final class NoOp implements iTaskWithName, iTaskWithDescription {
 
+  /**
+   * Builds the message that is printed when the task is executed and the printMessage flag is set to true.
+   *
+   * Gets the name of the task as argument and has to return the message as string.
+   *
+   * @var Closure(string $name) : string
+   */
   public Closure $getMessage;
 
-  public function __construct(public readonly string $name, public readonly bool $printMessage = false) {
+  public function __construct(public readonly string $name, public readonly bool $printMessage = false, public readonly iInfo $logging = new All()) {
     $this->getMessage = static fn(string $name) : string => "No operation task '{$name}' was executed";
   }
 
   public function __invoke() : void {
-    !$this->printMessage ?: '';
+    !$this->printMessage ?: $this->logging->info(($this->getMessage)($this->name));
   }
 
   public function getDescription() : string {
-    return 'A task that does nothing. Use to disable a task.';
+    return 'This task has been disabled.';
   }
 
   public function getName() : string {
