@@ -9,6 +9,8 @@
 - Add logging functions [\#13](https://github.com/codenamephp/deployer.base/issues/13)
 - Add "before" to deployer functions [\#9](https://github.com/codenamephp/deployer.base/issues/9)
 - Add "within" to deployer functions [\#8](https://github.com/codenamephp/deployer.base/issues/8)
+- NoOp Task [\#7](https://github.com/codenamephp/deployer.base/issues/7)
+- Added NoOp task [\#15](https://github.com/codenamephp/deployer.base/pull/15) ([bastianschwarz](https://github.com/bastianschwarz))
 - Added logging function [\#14](https://github.com/codenamephp/deployer.base/pull/14) ([bastianschwarz](https://github.com/bastianschwarz))
 - Added within method [\#12](https://github.com/codenamephp/deployer.base/pull/12) ([bastianschwarz](https://github.com/bastianschwarz))
 - Added before function [\#11](https://github.com/codenamephp/deployer.base/pull/11) ([bastianschwarz](https://github.com/bastianschwarz))
