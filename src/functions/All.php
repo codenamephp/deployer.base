@@ -19,6 +19,7 @@ namespace de\codenamephp\deployer\base\functions;
 
 use Closure;
 use de\codenamephp\deployer\base\MissingConfigurationException;
+use de\codenamephp\deployer\base\task\iTask;
 use de\codenamephp\deployer\base\task\iTaskWithDescription;
 use de\codenamephp\deployer\base\task\iTaskWithName;
 use Deployer\Deployer;
@@ -29,6 +30,7 @@ use Deployer\Task\Task;
 use Symfony\Component\Console\Input\InputArgument;
 use function Deployer\add;
 use function Deployer\after;
+use function Deployer\before;
 use function Deployer\currentHost;
 use function Deployer\download;
 use function Deployer\get;
@@ -50,8 +52,12 @@ final class All implements iAll {
     add($name, $array);
   }
 
-  public function after(string $task, callable|\de\codenamephp\deployer\base\task\iTask|string $do) : ?Task {
+  public function after(string $task, callable|iTask|string $do) : ?Task {
     return after($task, $do);
+  }
+
+  public function before(string $task, callable|iTask|string $do) : ?Task {
+    return before($task, $do);
   }
 
   public function currentHost() : Host {
@@ -151,7 +157,7 @@ final class All implements iAll {
     set($name, $value);
   }
 
-  public function task(string $name, callable|array|\de\codenamephp\deployer\base\task\iTask|null $body = null) : Task {
+  public function task(string $name, callable|array|iTask|null $body = null) : Task {
     return \Deployer\task($name, $body);
   }
 

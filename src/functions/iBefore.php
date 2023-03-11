@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- *   Copyright 2022 Bastian Schwarz <bastian@codename-php.de>.
+ *   Copyright 2023 Bastian Schwarz <bastian@codename-php.de>.
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,11 +17,20 @@
 
 namespace de\codenamephp\deployer\base\functions;
 
-/**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
- */
-interface iAll extends iAdd, iAfter, iBefore, iCurrentHost, iDownload, iGet, iHost, iInput, iLocalhost, iOn, iParse, iRun, iSet, iTask, iUpload {
+use de\codenamephp\deployer\base\task\iTask;
+use Deployer\Task\Task;
 
+/**
+ * Interface for the Deployer\before function
+ */
+interface iBefore {
+
+  /**
+   * Registers a task to be executed before another task
+   *
+   * @param string $task The name of the task the given task should be executed before
+   * @param callable():void|iTask|string $do The task to execute before the given task name
+   * @return Task|null The added task or null if no task was added
+   */
+  public function before(string $task, iTask|string|callable $do) : ?Task;
 }
