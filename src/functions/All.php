@@ -43,6 +43,7 @@ use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
 use function Deployer\upload;
+use function Deployer\warning;
 use function Deployer\within;
 
 /**
@@ -170,6 +171,10 @@ final class All implements iAll {
 
   public function upload(string $source, string $destination, array $config = []) : void {
     upload($source, $destination, $config);
+  }
+
+  public function warning(string $message) : void {
+    warning($message);
   }
 
   public function within(string $path, callable $callback) : mixed {
