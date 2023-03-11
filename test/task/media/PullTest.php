@@ -21,9 +21,12 @@ use de\codenamephp\deployer\base\functions\All;
 use de\codenamephp\deployer\base\functions\iDownload;
 use de\codenamephp\deployer\base\task\media\Pull;
 use de\codenamephp\deployer\base\transferable\iTransferable;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PullTest extends TestCase {
+
+  use MockeryPHPUnitIntegration;
 
   private Pull $sut;
 
@@ -60,15 +63,10 @@ final class PullTest extends TestCase {
       $this->createConfiguredMock(iTransferable::class, ['getLocalPath' => 'local3', 'getRemotePath' => 'remote3', 'getConfig' => ['config3']]),
     );
 
-    $this->sut->deployerFunctions = $this->createMock(iDownload::class);
-    $this->sut->deployerFunctions
-      ->expects(self::exactly(3))
-      ->method('download')
-      ->withConsecutive(
-        ['remote1', 'local1', ['config1']],
-        ['remote2', 'local2', ['config2']],
-        ['remote3', 'local3', ['config3']],
-      );
+    $this->sut->deployerFunctions = \Mockery::mock(iDownload::class);
+    $this->sut->deployerFunctions->allows('download')->once()->ordered()->with('remote1', 'local1', ['config1']);
+    $this->sut->deployerFunctions->allows('download')->once()->ordered()->with('remote2', 'local2', ['config2']);
+    $this->sut->deployerFunctions->allows('download')->once()->ordered()->with('remote3', 'local3', ['config3']);
 
     $this->sut->__invoke();
   }

@@ -24,9 +24,12 @@ use de\codenamephp\deployer\base\iConfigurationKeys;
 use de\codenamephp\deployer\base\task\media\Copy;
 use de\codenamephp\deployer\base\transferable\iTransferable;
 use Deployer\Host\Host;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class CopyTest extends TestCase {
+
+  use MockeryPHPUnitIntegration;
 
   private Copy $sut;
 
@@ -83,27 +86,16 @@ final class CopyTest extends TestCase {
     $transferable2->expects(self::once())->method('getConfig')->willReturn(['options' => ['options2_1', 'options2_2']]);
     $this->sut->setTransferables($transferable1, $transferable2);
 
-    $deployerFunctions = $this->createMock(iAll::class);
-    $deployerFunctions->expects(self::once())->method('getOption')->with(Copy::OPTION_SOURCE_HOST)->willReturn(1234);
-    $deployerFunctions->expects(self::once())->method('firstHost')->with('1234')->willReturn($sourceHost);
-    $deployerFunctions->expects(self::once())->method('currentHost')->willReturn($targetHost);
-    $deployerFunctions
-      ->expects(self::exactly(4))
-      ->method('parseOnHost')
-      ->withConsecutive(
-        [$sourceHost, 'source_path_1'],
-        [$targetHost, 'target_path_1'],
-        [$sourceHost, 'source_path_2'],
-        [$targetHost, 'target_path_2'],
-      )
-      ->willReturnOnConsecutiveCalls('parsed_source_path_1', 'parsed_target_path_1', 'parsed_source_path_2', 'parsed_target_path_2');
-    $deployerFunctions
-      ->expects(self::exactly(2))
-      ->method('runLocally')
-      ->withConsecutive(
-        ['ssh source_ssh_arguments source_connection_string "rsync -e \'ssh -o StrictHostKeyChecking=no target_ssh_arguments\' -azP options1_1 options1_2 parsed_source_path_1 target_connection_string:parsed_target_path_1"'],
-        ['ssh source_ssh_arguments source_connection_string "rsync -e \'ssh -o StrictHostKeyChecking=no target_ssh_arguments\' -azP options2_1 options2_2 parsed_source_path_2 target_connection_string:parsed_target_path_2"']
-      );
+    $deployerFunctions = \Mockery::mock(iAll::class);
+    $deployerFunctions->allows('getOption')->once()->with(Copy::OPTION_SOURCE_HOST)->andReturn(1234);
+    $deployerFunctions->allows('firstHost')->once()->with('1234')->andReturn($sourceHost);
+    $deployerFunctions->allows('currentHost')->once()->andReturn($targetHost);
+    $deployerFunctions->allows('parseOnHost')->once()->ordered()->with($sourceHost, 'source_path_1')->andReturn('parsed_source_path_1');
+    $deployerFunctions->allows('parseOnHost')->once()->ordered()->with($targetHost, 'target_path_1')->andReturn('parsed_target_path_1');
+    $deployerFunctions->allows('runLocally')->once()->ordered()->with('ssh source_ssh_arguments source_connection_string "rsync -e \'ssh -o StrictHostKeyChecking=no target_ssh_arguments\' -azP options1_1 options1_2 parsed_source_path_1 target_connection_string:parsed_target_path_1"');
+    $deployerFunctions->allows('parseOnHost')->once()->ordered()->with($sourceHost, 'source_path_2')->andReturn('parsed_source_path_2');
+    $deployerFunctions->allows('parseOnHost')->once()->ordered()->with($targetHost, 'target_path_2')->andReturn('parsed_target_path_2');
+    $deployerFunctions->allows('runLocally')->once()->ordered()->with('ssh source_ssh_arguments source_connection_string "rsync -e \'ssh -o StrictHostKeyChecking=no target_ssh_arguments\' -azP options2_1 options2_2 parsed_source_path_2 target_connection_string:parsed_target_path_2"');
     $this->sut->deployerFunctions = $deployerFunctions;
 
     $this->sut->__invoke();

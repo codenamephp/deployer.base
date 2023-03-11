@@ -61,12 +61,12 @@ final class ByTaskListAndMatchersTest extends TestCase {
     $this->sut->deployer = $this->createMock(Deployer::class);
     $this->sut->deployer->expects(self::once())->method('__get')->with('tasks')->willReturn([$task1, $task2, $task3, $task4, $task5]);
 
-    $this->sut->taskMatcher = $this->createMock(iTaskMatcher::class);
-    $this->sut->taskMatcher
-      ->expects(self::exactly(5))
-      ->method('matches')
-      ->withConsecutive([$task1], [$task2], [$task3], [$task4], [$task5])
-      ->willReturnOnConsecutiveCalls(true, false, false, true, true);
+    $this->sut->taskMatcher = \Mockery::mock(iTaskMatcher::class);
+    $this->sut->taskMatcher->allows('matches')->once()->ordered()->with($task1)->andReturn(true);
+    $this->sut->taskMatcher->allows('matches')->once()->ordered()->with($task2)->andReturn(false);
+    $this->sut->taskMatcher->allows('matches')->once()->ordered()->with($task3)->andReturn(false);
+    $this->sut->taskMatcher->allows('matches')->once()->ordered()->with($task4)->andReturn(true);
+    $this->sut->taskMatcher->allows('matches')->once()->ordered()->with($task5)->andReturn(true);
 
     $this->sut->hide();
   }
