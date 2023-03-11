@@ -1,8 +1,13 @@
 # Changelog
 
-## [2.0.2](https://github.com/codenamephp/deployer.base/tree/2.0.2) (2023-03-11)
+## [3.0.0](https://github.com/codenamephp/deployer.base/tree/3.0.0) (2023-03-11)
 
-[Full Changelog](https://github.com/codenamephp/deployer.base/compare/2.0.1...2.0.2)
+[Full Changelog](https://github.com/codenamephp/deployer.base/compare/2.0.1...3.0.0)
+
+**Implemented enhancements:**
+
+- Add "before" to deployer functions [\#9](https://github.com/codenamephp/deployer.base/issues/9)
+- Added before function [\#11](https://github.com/codenamephp/deployer.base/pull/11) ([bastianschwarz](https://github.com/bastianschwarz))
 
 **Merged pull requests:**
 
