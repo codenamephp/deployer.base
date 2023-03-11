@@ -34,6 +34,7 @@ use function Deployer\before;
 use function Deployer\currentHost;
 use function Deployer\download;
 use function Deployer\get;
+use function Deployer\info;
 use function Deployer\input;
 use function Deployer\on;
 use function Deployer\option;
@@ -42,7 +43,9 @@ use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
 use function Deployer\upload;
+use function Deployer\warning;
 use function Deployer\within;
+use function Deployer\writeln;
 
 /**
  * Implements all method interfaces so we a "all drop-in" class to easily access the methods
@@ -171,7 +174,19 @@ final class All implements iAll {
     upload($source, $destination, $config);
   }
 
+  public function warning(string $message) : void {
+    warning($message);
+  }
+
   public function within(string $path, callable $callback) : mixed {
     return within($path, $callback);
+  }
+
+  public function info(string $message) : void {
+    info($message);
+  }
+
+  public function writeln(string $message) : void {
+    writeln($message);
   }
 }
