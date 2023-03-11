@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- *   Copyright 2022 Bastian Schwarz <bastian@codename-php.de>.
+ *   Copyright 2023 Bastian Schwarz <bastian@codename-php.de>.
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -18,8 +18,15 @@
 namespace de\codenamephp\deployer\base\functions;
 
 /**
- * Composition interface to collect all separated interface for when we just want to add all functions to a task.
- *
- * The idea is to provide a stable, typed API and also a level of abstraction to the global deployer functions so testing is easier.
+ * Interface for the Deployer\writeln function
  */
-interface iAll extends iAdd, iAfter, iBefore, iCurrentHost, iDownload, iGet, iHost, iInfo, iInput, iLocalhost, iOn, iParse, iRun, iSet, iTask, iUpload, iWarning, iWithin, iWriteln {}
+interface iWriteln {
+
+  /**
+   * Writes a message to the console and adds a newline at the end
+   *
+   * @param string $message The message to write
+   * @return void
+   */
+  public function writeln(string $message) : void;
+}
