@@ -42,6 +42,7 @@ use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
 use function Deployer\upload;
+use function Deployer\within;
 
 /**
  * Implements all method interfaces so we a "all drop-in" class to easily access the methods
@@ -168,5 +169,9 @@ final class All implements iAll {
 
   public function upload(string $source, string $destination, array $config = []) : void {
     upload($source, $destination, $config);
+  }
+
+  public function within(string $path, callable $callback) : mixed {
+    return within($path, $callback);
   }
 }
