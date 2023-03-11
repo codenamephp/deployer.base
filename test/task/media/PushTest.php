@@ -21,9 +21,13 @@ use de\codenamephp\deployer\base\functions\iUpload;
 use de\codenamephp\deployer\base\hostCheck\iHostCheck;
 use de\codenamephp\deployer\base\task\media\Push;
 use de\codenamephp\deployer\base\transferable\iTransferable;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PushTest extends TestCase {
+
+  use MockeryPHPUnitIntegration;
 
   private Push $sut;
 
@@ -59,7 +63,7 @@ final class PushTest extends TestCase {
     $this->sut->hostCheck = $this->createMock(iHostCheck::class);
     $this->sut->hostCheck->expects(self::once())->method('check');
 
-    $this->sut->deployerFunctions = \Mockery::mock(iUpload::class);
+    $this->sut->deployerFunctions = Mockery::mock(iUpload::class);
     $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local1', 'remote1', ['config1']);
     $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local2', 'remote2', ['config2']);
     $this->sut->deployerFunctions->allows('upload')->once()->ordered()->with('local3', 'remote3', ['config3']);
