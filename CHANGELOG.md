@@ -1,11 +1,12 @@
 # Changelog
 
-## [2.0.2](https://github.com/codenamephp/deployer.base/tree/2.0.2) (2022-12-13)
+## [2.0.2](https://github.com/codenamephp/deployer.base/tree/2.0.2) (2023-03-11)
 
 [Full Changelog](https://github.com/codenamephp/deployer.base/compare/2.0.1...2.0.2)
 
 **Merged pull requests:**
 
+- Updated CI tools [\#10](https://github.com/codenamephp/deployer.base/pull/10) ([bastianschwarz](https://github.com/bastianschwarz))
 - PHP 8.2 [\#6](https://github.com/codenamephp/deployer.base/pull/6) ([bastianschwarz](https://github.com/bastianschwarz))
 
 ## [2.0.1](https://github.com/codenamephp/deployer.base/tree/2.0.1) (2022-07-31)
