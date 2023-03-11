@@ -2,7 +2,14 @@
 
 ## 2.x -> 3.x
 
+### Before Method
+
 The iAll interface was extended with the iBefore interface. If you created your own implementation of iAll you need to implement the iBefore interface as well. 
+If you use the All class you don't need to do anything.
+
+### Within Method
+
+The iAll interface was extended with the iWithin interface. If you created your own implementation of iAll you need to implement the iWithin interface as well. 
 If you use the All class you don't need to do anything.
 
 ## 1.x -> 2.x
