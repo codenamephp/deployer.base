@@ -20,6 +20,10 @@ If you use the All class you don't need to do anything.
 The iAll interface was extended with the iWarning interface. If you created your own implementation of iAll you need to implement the iWarning interface as well.
 If you use the All class you don't need to do anything.
 
+### Writeln Method
+The iAll interface was extended with the iWriteln interface. If you created your own implementation of iAll you need to implement the iWriteln interface as well.
+If you use the All class you don't need to do anything.
+
 ## 1.x -> 2.x
 
 The ssh connection string is now part of `\Deployer\Host\Host`. This means the

@@ -45,6 +45,7 @@ use function Deployer\set;
 use function Deployer\upload;
 use function Deployer\warning;
 use function Deployer\within;
+use function Deployer\writeln;
 
 /**
  * Implements all method interfaces so we a "all drop-in" class to easily access the methods
@@ -183,5 +184,9 @@ final class All implements iAll {
 
   public function info(string $message) : void {
     info($message);
+  }
+
+  public function writeln(string $message) : void {
+    writeln($message);
   }
 }
