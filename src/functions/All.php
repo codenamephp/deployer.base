@@ -52,7 +52,7 @@ final class All implements iAll {
     add($name, $array);
   }
 
-  public function after(string $task, callable|\de\codenamephp\deployer\base\task\iTask|string $do) : ?Task {
+  public function after(string $task, callable|iTask|string $do) : ?Task {
     return after($task, $do);
   }
 
@@ -157,7 +157,7 @@ final class All implements iAll {
     set($name, $value);
   }
 
-  public function task(string $name, callable|array|\de\codenamephp\deployer\base\task\iTask|null $body = null) : Task {
+  public function task(string $name, callable|array|iTask|null $body = null) : Task {
     return \Deployer\task($name, $body);
   }
 

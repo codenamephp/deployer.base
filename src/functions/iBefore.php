@@ -29,8 +29,8 @@ interface iBefore {
    * Registers a task to be executed before another task
    *
    * @param string $task The name of the task the given task should be executed before
-   * @param callable|iTask|string $do The task to execute before the given task name
+   * @param callable():void|iTask|string $do The task to execute before the given task name
    * @return Task|null The added task or null if no task was added
    */
-  public function before(string $task, callable|\de\codenamephp\deployer\base\task\iTask|string $do) : ?Task;
+  public function before(string $task, iTask|string|callable $do) : ?Task;
 }
