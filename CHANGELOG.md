@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0](https://github.com/codenamephp/deployer.base/tree/3.1.0) (2023-06-02)
+
+[Full Changelog](https://github.com/codenamephp/deployer.base/compare/3.0.0...3.1.0)
+
+**Implemented enhancements:**
+
+- Task: Add Revison Task [\#17](https://github.com/codenamephp/deployer.base/pull/17) ([bastianschwarz](https://github.com/bastianschwarz))
+
 ## [3.0.0](https://github.com/codenamephp/deployer.base/tree/3.0.0) (2023-03-11)
 
 [Full Changelog](https://github.com/codenamephp/deployer.base/compare/2.0.1...3.0.0)
