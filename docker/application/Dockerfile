@@ -1,4 +1,4 @@
-FROM webdevops/php-dev:8.2
+FROM webdevops/php-dev:8.3
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
