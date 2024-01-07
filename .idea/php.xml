@@ -50,8 +50,8 @@
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="e49815d4-f0ae-4df0-8cb0-e3551f0731e7" name="application" home="docker-compose://DATA" debugger_id="php.debugger.XDebug">
-        <remote_data INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="application" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
+      <interpreter id="e49815d4-f0ae-4df0-8cb0-e3551f0731e7" name="application" home="docker-compose://DATA" auto="false" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="application" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
           <type_data command="EXEC" />
           <dockerComposeConfigurationPaths>
             <item value="$PROJECT_DIR$/docker-compose.yml" />
@@ -145,11 +145,11 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
   <component name="PhpUnit">
     <phpunit_settings>
-      <phpunit_by_interpreter interpreter_id="e49815d4-f0ae-4df0-8cb0-e3551f0731e7" load_method="PHPUNIT_PHAR" configuration_file_path="/app/test/phpunit.dist.xml" custom_loader_path="/app/vendor/autoload.php" phpunit_phar_path="/app/tools/phpunit.phar" use_configuration_file="true" />
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
+      <phpunit_by_interpreter interpreter_id="e49815d4-f0ae-4df0-8cb0-e3551f0731e7" load_method="PHPUNIT_PHAR" configuration_file_path="/app/test/phpunit.dist.xml" custom_loader_path="/app/vendor/autoload.php" phpunit_phar_path="/app/tools/phpunit.phar" use_configuration_file="true" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
