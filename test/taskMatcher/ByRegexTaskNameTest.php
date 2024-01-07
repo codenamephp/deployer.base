@@ -49,6 +49,15 @@ final class ByRegexTaskNameTest extends TestCase {
     self::assertFalse($this->sut->matches($task4));
   }
 
+  public function testMatches_canReturnFalse_whenRegexIsEmpty() : void {
+    $this->sut->regex = '';
+
+    $task1 = $this->createMock(Task::class);
+    $task1->expects(self::never())->method('getName');
+
+    self::assertFalse($this->sut->matches($task1));
+  }
+
   public function test__construct() : void {
     $regex = 'some regex';
 

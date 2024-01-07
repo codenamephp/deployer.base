@@ -27,6 +27,6 @@ final class ByRegexTaskName implements iTaskMatcher {
   public function __construct(public string $regex) {}
 
   public function matches(Task $task) : bool {
-    return preg_match($this->regex, $task->getName()) === 1;
+    return $this->regex !== '' && preg_match($this->regex, $task->getName()) === 1;
   }
 }

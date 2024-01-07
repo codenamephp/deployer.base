@@ -146,7 +146,7 @@ final class All implements iAll {
   public function parseOnHost(Host $host, string $value) : string {
     $finalValue = '';
     $this->on($host, function() use (&$finalValue, $value) { $finalValue = $this->parse($value); });
-    return (string) $finalValue;
+    return $finalValue;
   }
 
   public function run(string $command, ?array $options = [], ?int $timeout = null, ?int $idle_timeout = null, ?string $secret = null, ?array $env = null, ?bool $real_time_output = false, ?bool $no_throw = false) : string {
