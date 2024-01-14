@@ -1,11 +1,12 @@
 # Changelog
 
-## [4.0.0](https://github.com/codenamephp/deployer.base/tree/4.0.0) (2024-01-07)
+## [4.0.0](https://github.com/codenamephp/deployer.base/tree/4.0.0) (2024-01-14)
 
 [Full Changelog](https://github.com/codenamephp/deployer.base/compare/3.2.0...4.0.0)
 
 **Merged pull requests:**
 
+- Update symfony/console requirement from ^6.1 to ^6.1 || ^7.0 [\#21](https://github.com/codenamephp/deployer.base/pull/21) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Drop support for PHP8.1 [\#20](https://github.com/codenamephp/deployer.base/pull/20) ([bastianschwarz](https://github.com/bastianschwarz))
 
 ## [3.2.0](https://github.com/codenamephp/deployer.base/tree/3.2.0) (2024-01-07)
